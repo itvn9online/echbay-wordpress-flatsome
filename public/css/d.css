@@ -7,6 +7,10 @@
 .bold {
     font-weight: bold;
 }
+.div-valign-center {
+    display: inline-flex;
+    align-items: center;
+}
 /* desktop only */
 @media only screen and (min-width:748px) {}
 /* mobile, table only */
