@@ -1,0 +1,15 @@
+.upper {
+    text-transform: uppercase;
+}
+.big {
+    font-size: 30px;
+}
+.bold {
+    font-weight: bold;
+}
+/* desktop only */
+@media only screen and (min-width:748px) {}
+/* mobile, table only */
+@media only screen and (max-width:788px) {}
+/* mobile only */
+@media only screen and (max-width:395px) {}
