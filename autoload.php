@@ -6,9 +6,42 @@
 require dirname( dirname( __DIR__ ) ) . '/echbay-wordpress-flatsome/autoload.php';
  */
 
+require_once __DIR__ . '/ebcache.php';
+
+
+// nếu thư mục content đã được khai báo -> lấy thư mục theo thông số này
+if ( defined( 'WP_CONTENT_DIR' ) ) {
+    define( 'EB_DIR_CONTENT', basename( WP_CONTENT_DIR ) );
+    define( 'EB_THEME_CONTENT', WP_CONTENT_DIR . '/' );
+}
+// Không thì khai báo mặc định
+else {
+    // tên thư mục chứa content
+    define( 'EB_DIR_CONTENT', 'wp-content' );
+
+    // thư mục đầy đủ của content
+    define( 'WP_CONTENT_DIR', ABSPATH . EB_DIR_CONTENT );
+
+    //	define( 'EB_THEME_CONTENT', EB_WEB_PUBLIC_HTML . EB_DIR_CONTENT . '/' );
+    define( 'EB_THEME_CONTENT', WP_CONTENT_DIR . '/' );
+}
+
 // path to MVC
 define( 'WGR_APP_PATH', __DIR__ . '/app/' );
-require WGR_APP_PATH . 'config/config.php';
+define( 'EB_THEME_URL', __DIR__ . '/' );
+define( 'EB_THEME_PLUGIN_INDEX', EB_THEME_URL );
+define( 'EB_URL_TUONG_DOI', EB_DIR_CONTENT . '/echbaydotcom/' );
+define( 'eb_default_vaficon', EB_URL_TUONG_DOI . 'favicon.png' );
+// thời gian mặc định cho cache
+define( 'eb_default_cache_time', 120 );
+define( 'EB_THEME_THEME', EB_THEME_URL );
+define( 'EB_THEME_HTML', EB_THEME_THEME . 'html/' );
+
+//
+$default_all_site_lang = 'vi';
+$default_all_timezone = 'Asia/Ho_Chi_Minh';
+$date_time = time();
+define( 'date_time', $date_time );
 
 
 // global static class
@@ -96,6 +129,9 @@ $postModelWgr->test();
 */
 
 //
+require WGR_APP_PATH . 'config/config.php';
+
+//
 require WGR_APP_PATH . 'inc/add_action.php';
 
 // custom post type/ taxonomy
@@ -108,14 +144,18 @@ foreach ( glob( WGR_APP_PATH . 'inc/autoload/*.php' ) as $filename ) {
     include $filename;
 }
 
-$arr_wgr_autoload = [
-    // nạp các shortcode
-    'shortcode',
-];
-
-foreach ( $arr_wgr_autoload as $v ) {
-    foreach ( glob( WGR_APP_PATH . 'inc/autoload/' . $v . '/*.php' ) as $filename ) {
-        //echo $filename . '<br>' . "\n";
-        include $filename;
-    }
+// nạp thư viện shortcode tương ứng cho các widget
+foreach ( glob( WGR_APP_PATH . 'inc/shortcode/*.php' ) as $filename ) {
+    //echo $filename . '<br>' . "\n";
+    include $filename;
 }
+
+// sau đó nạp widget để wiget có function mà hiển thị dữ liệu
+require WGR_APP_PATH . 'inc/widget.php';
+
+/*
+//Bổ sung 1 số trường cho admin
+if ( is_admin() ) {
+    require WGR_APP_PATH . 'inc/admin-menu.php';
+}
+*/

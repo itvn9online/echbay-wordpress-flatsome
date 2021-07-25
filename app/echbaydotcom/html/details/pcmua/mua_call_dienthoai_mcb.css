@@ -1,0 +1,36 @@
+.detail-muangay-topleft,
+.detail-muangay-topcenter {
+	float: left;
+	width: 50%;
+}
+.detail-muangay-topleft .details-mua-ngay,
+.detail-muangay-topcenter .details-mua-ngay {
+	height: 40px;
+	font-size: 16px;
+	text-transform: none;
+	border-radius: 3px;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, .3);
+}
+.detail-muangay-topleft { text-align: left; }
+.detail-muangay-topleft .details-mua-ngay {
+	width: 93%;
+	margin: 0;
+}
+.style-for-mobile .detail-muangay-topleft .details-mua-ngay {
+	margin: 0 auto;
+	width: 100%;
+}
+.detail-muangay-topright {
+	float: left;
+	width: 100%;
+	border: 1px #999 solid;
+	padding: 10px 0;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, .3);
+}
+.detail-muangay-topphone a { display: inline-block; }
+.detail-muangay-topphone a:after {
+	content: "-";
+	display: inline-block;
+	margin: 0 5px;
+}
+.detail-muangay-topphone a:last-child:after { display: none; }
