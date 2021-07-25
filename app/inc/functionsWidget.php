@@ -1217,7 +1217,7 @@ function WGR_default_for_home_list_and_blog() {
 // add css, js for elementor
 // do trong trình chỉnh sửa của elemento không có sẵn các mã JS, CSS của EchBay theme, nên widget trong này hoạt động cũng không chuẩn -> add thêm vào cho nó chuẩn
 function WGR_add_css_js_for_elementor_editer() {
-    $f = EB_THEME_PLUGIN_INDEX . 'javascript/elementor.js';
+    $f = WGR_PUBLIC_PATH . 'javascript/elementor.js';
 
     /*
     echo EB_THEME_PLUGIN_INDEX . '<br>';
@@ -1229,7 +1229,7 @@ function WGR_add_css_js_for_elementor_editer() {
     echo $f . '<br>';
     echo str_replace( ABSPATH, web_link, $f ) . '<br>';
     */
-    echo '<script>var url_for_add_elementor="' . str_replace( ABSPATH, web_link, EB_THEME_PLUGIN_INDEX ) . '";</script>
+    echo '<script>var url_for_add_elementor="' . str_replace( ABSPATH, web_link, WGR_PUBLIC_PATH ) . '";</script>
 	<script src="' . str_replace( ABSPATH, web_link, $f ) . '?v=' . filemtime( $f ) . '"></script>';
 }
 

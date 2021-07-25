@@ -28,6 +28,9 @@ else {
 
 // path to MVC
 define( 'WGR_APP_PATH', __DIR__ . '/app/' );
+define( 'WGR_APP_INC_PATH', WGR_APP_PATH . 'inc/' );
+define( 'WGR_PUBLIC_PATH', __DIR__ . '/public/' );
+
 define( 'EB_THEME_URL', __DIR__ . '/' );
 define( 'EB_THEME_PLUGIN_INDEX', EB_THEME_URL );
 define( 'EB_URL_TUONG_DOI', EB_DIR_CONTENT . '/echbaydotcom/' );
@@ -36,12 +39,28 @@ define( 'eb_default_vaficon', EB_URL_TUONG_DOI . 'favicon.png' );
 define( 'eb_default_cache_time', 120 );
 define( 'EB_THEME_THEME', EB_THEME_URL );
 define( 'EB_THEME_HTML', EB_THEME_THEME . 'html/' );
+define( 'using_child_wgr_theme', 1 );
+
+define( 'EB_THEME_CORE', WGR_APP_PATH . 'inc/class/' );
+
+// thuộc tính dùng để lưu và lấy thông tin khác của post
+define( 'eb_post_obj_data', '_eb_post_obj_data' );
+define( 'eb_cat_obj_data', '_eb_cat_obj_data' );
+
+define( 'EB_THEME_OUTSOURCE', EB_THEME_URL . 'public/outsource/' );
+define( 'ECHBAY_PRI_CODE', WGR_APP_INC_PATH . 'echbay/' );
 
 //
 $default_all_site_lang = 'vi';
 $default_all_timezone = 'Asia/Ho_Chi_Minh';
 $date_time = time();
 define( 'date_time', $date_time );
+
+$date_server = date ( 'Y-m-d', $date_time );
+$time_server = date ( 'H:i:s', $date_time );
+$year_curent = substr ( $date_server, 0, 4 );
+$month_curent = substr ( $date_server, 5, 2 );
+$day_curent = substr ( $date_server, 8, 2 );
 
 
 // global static class
@@ -153,9 +172,7 @@ foreach ( glob( WGR_APP_PATH . 'inc/shortcode/*.php' ) as $filename ) {
 // sau đó nạp widget để wiget có function mà hiển thị dữ liệu
 require WGR_APP_PATH . 'inc/widget.php';
 
-/*
 //Bổ sung 1 số trường cho admin
 if ( is_admin() ) {
     require WGR_APP_PATH . 'inc/admin-menu.php';
 }
-*/

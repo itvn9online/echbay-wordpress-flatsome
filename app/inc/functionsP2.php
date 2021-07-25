@@ -1199,7 +1199,7 @@ function _eb_create_file(
 	}
 	//
 	else {
-        echo $file_ . '<br>' . "\n";
+        //echo $file_ . '<br>' . "\n";
 		//		file_put_contents( $file_, $content_, LOCK_EX ) or die('ERROR: write to file');
 		$aa = file_put_contents( $file_, $content_ );
 		//		chmod($file_, 0777);

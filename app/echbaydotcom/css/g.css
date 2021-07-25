@@ -1,5 +1,0 @@
-/* Global style for guest only */
-@charset "utf-8";
-/* hide admin  bar */
-#wpadminbar { display: none !important; }
-html { margin-top: 0 !important; }

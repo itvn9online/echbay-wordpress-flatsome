@@ -715,11 +715,12 @@ function EBE_get_page_template( $page_name = '', $dir = EB_THEME_HTML, $f_css = 
     }
     // tìm trong thư mục theme chung
     else {
-        $f = EB_THEME_PLUGIN_INDEX . 'html/' . $page_name . '.html';
+        $f = EB_THEME_PLUGIN_INDEX . 'public/html/' . $page_name . '.html';
 
         // nếu không -> báo lỗi
         if ( !file_exists( $f ) ) {
-            return 'File HTML "' . $page_name . '" not found.';
+            return 'File HTML not found! ' . $f;
+            return 'File HTML not found! ' . $page_name;
         }
 
         // nếu có -> dùng
@@ -735,7 +736,7 @@ function EBE_get_page_template( $page_name = '', $dir = EB_THEME_HTML, $f_css = 
           else {
          */
         // dùng chung thì gán CSS dùng chung luôn (nếu có)
-        $css = EB_THEME_PLUGIN_INDEX . 'css/default/' . $page_name . '.css';
+        $css = EB_THEME_PLUGIN_INDEX . 'public/css/default/' . $page_name . '.css';
         //			if ( file_exists( $css ) ) {
         $arr_for_add_css[ $css ] = 1;
 

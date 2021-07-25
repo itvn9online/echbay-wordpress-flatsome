@@ -227,7 +227,7 @@ function echbay_admin_styles() {
 	}
 	
 	//
-	include EB_THEME_PLUGIN_INDEX . 'class/custom/admin-js.php';
+	include WGR_APP_INC_PATH . 'class/custom/admin-js.php';
 	
 	
 	
@@ -258,10 +258,10 @@ function echbay_admin_styles() {
         EB_THEME_OUTSOURCE . 'fontawesome-free-5.15.1-web/css/solid.min.css',
         EB_THEME_OUTSOURCE . 'fontawesome-free-5.15.1-web/css/v4-shims.min.css',
         //
-		EB_THEME_PLUGIN_INDEX . 'css/d.css',
-		EB_THEME_PLUGIN_INDEX . 'css/d2.css',
-		EB_THEME_PLUGIN_INDEX . 'css/admin.css',
-		EB_THEME_PLUGIN_INDEX . 'css/admin-blog-widget.css'
+		WGR_PUBLIC_PATH . 'css/d.css',
+		WGR_PUBLIC_PATH . 'css/d2.css',
+		WGR_PUBLIC_PATH . 'css/admin.css',
+		WGR_PUBLIC_PATH . 'css/admin-blog-widget.css'
 	);
 //	echo EB_THEME_PLUGIN_INDEX . 'aaaaaaaaaaaaaaaaaa' . "\n";
 //	echo ABSPATH . 'aaaaaaaaaaaaaaaaaa' . "\n";
@@ -290,12 +290,12 @@ function echbay_admin_styles() {
 	) ), 'add' );
 	*/
 	$a = array(
-		EB_THEME_PLUGIN_INDEX . 'javascript/functions.js',
-		EB_THEME_PLUGIN_INDEX . 'javascript/eb.js',
-		EB_THEME_PLUGIN_INDEX . 'javascript/all.js',
-		EB_THEME_PLUGIN_INDEX . 'javascript/edit_menu.js',
-		EB_THEME_PLUGIN_INDEX . 'javascript/edit_post.js',
-		EB_THEME_PLUGIN_INDEX . 'javascript/edit_widgets.js'
+		WGR_PUBLIC_PATH . 'javascript/functions.js',
+		WGR_PUBLIC_PATH . 'javascript/eb.js',
+		WGR_PUBLIC_PATH . 'javascript/all.js',
+		WGR_PUBLIC_PATH . 'javascript/edit_menu.js',
+		WGR_PUBLIC_PATH . 'javascript/edit_post.js',
+		WGR_PUBLIC_PATH . 'javascript/edit_widgets.js'
 	);
 	foreach ( $a as $v ) {
 //		$k = EB_THEME_PLUGIN_INDEX . $v;
@@ -499,7 +499,7 @@ function echbay_admin_footer_styles() {
 	) ), 'add' );
 	*/
 	$a = array(
-		EB_THEME_PLUGIN_INDEX . 'javascript/a.js',
+		WGR_PUBLIC_PATH . 'javascript/a.js',
 	);
 	
 	// Thêm file admin của child theme nếu có
@@ -830,7 +830,7 @@ include EB_THEME_CORE . 'custom/admin/create-echbay-table.php';
 if ( $__cf_row['cf_on_off_auto_update_wp'] != 1 ) {
 	include EB_THEME_CORE . 'custom/admin/disable-update.php';
 }
-include EB_THEME_PLUGIN_INDEX . 'cronjob/auto-clean.php';
+include WGR_APP_INC_PATH . 'cronjob/auto-clean.php';
 
 
 

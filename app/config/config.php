@@ -24,6 +24,16 @@ define( 'mtv_id', $mtv_id );
 define( 'mtv_email', $mtv_email );
 
 
+// thiết lập url -> có ssl hoặc ko
+$eb_web_protocol = 'http';
+if ( $_SERVER[ 'SERVER_PORT' ] == 443 ||
+    ( isset( $_SERVER[ 'HTTPS' ] ) && $_SERVER[ 'HTTPS' ] == 'on' ) ||
+    ( isset( $_SERVER[ 'HTTP_X_FORWARDED_PROTO' ] ) && $_SERVER[ 'HTTP_X_FORWARDED_PROTO' ] == 'https' ) ) {
+    $eb_web_protocol = 'https';
+}
+define( 'eb_web_protocol', $eb_web_protocol );
+
+
 //
 //echo $wpdb->postmeta . '<br>';
 define( 'wp_postmeta', $wpdb->postmeta );
@@ -32,12 +42,153 @@ define( 'wp_termmeta', $wpdb->termmeta );
 //echo $wpdb->posts . '<br>';
 define( 'wp_posts', $wpdb->posts );
 
+// 404 monitor
+define( 'eb_log_404_id_postmeta', 100000404 );
+
 //
 require WGR_APP_PATH . 'inc/functions.php';
 require WGR_APP_PATH . 'inc/private_setting.php';
 require WGR_APP_PATH . 'inc/default_config.php';
 include WGR_APP_PATH . 'inc/lang/vi.php';
 require WGR_APP_PATH . 'inc/cache.php';
+include EB_THEME_CORE . 'curl.php';
+
+
+// mảng danh sách các định dạng quảng cáo
+$arr_eb_ads_status = array(
+    0 => '[ Không hiển thị ]',
+    1 => EBE_get_lang( 'ads_status1' ),
+    4 => EBE_get_lang( 'ads_status4' ),
+    5 => EBE_get_lang( 'ads_status5' ),
+    6 => EBE_get_lang( 'ads_status6' ),
+    7 => EBE_get_lang( 'ads_status7' ),
+    8 => EBE_get_lang( 'ads_status8' ),
+    9 => EBE_get_lang( 'ads_status9' ),
+    10 => EBE_get_lang( 'ads_status10' ),
+    11 => EBE_get_lang( 'ads_status11' ),
+    12 => EBE_get_lang( 'ads_status12' ),
+    13 => EBE_get_lang( 'ads_status13' ),
+    14 => EBE_get_lang( 'ads_status14' ),
+    15 => EBE_get_lang( 'ads_status15' )
+);
+
+$arr_eb_product_status = array(
+    0 => EBE_get_lang( 'product_status0' ),
+    1 => EBE_get_lang( 'product_status1' ),
+    2 => EBE_get_lang( 'product_status2' ),
+    3 => EBE_get_lang( 'product_status3' ),
+    4 => EBE_get_lang( 'product_status4' ),
+    5 => EBE_get_lang( 'product_status5' ),
+    6 => EBE_get_lang( 'product_status6' ),
+    7 => EBE_get_lang( 'product_status7' ),
+    8 => EBE_get_lang( 'product_status8' ),
+    9 => EBE_get_lang( 'product_status9' ),
+    10 => EBE_get_lang( 'product_status10' )
+);
+
+$arr_eb_product_gender = array(
+    0 => EBE_get_lang( 'product_unisex_gender' ),
+    1 => EBE_get_lang( 'product_male_gender' ),
+    2 => EBE_get_lang( 'product_female_gender' )
+);
+
+$arr_eb_category_gender = array(
+    0 => EBE_get_lang( 'product_unisex_gender' ),
+    1 => EBE_get_lang( 'product_male_gender' ),
+    2 => EBE_get_lang( 'product_female_gender' )
+
+);
+
+
+//
+$arr_active_for_404_page = array(
+    "eb_export_products" => 1,
+    "order_export" => 1,
+
+    "test_email" => 1,
+    "billing_print" => 1,
+
+    "cart" => 1,
+    "contact" => 1,
+
+    "favorite" => 1,
+    "golden_time" => 1,
+    "products_hot" => 1,
+    "products_new" => 1,
+    "products_selling" => 1,
+    "products_sales_off" => 1,
+    "products_all" => 1,
+
+    "hoan-tat" => 1,
+    "ebsearch" => 1,
+    "duplicate_post" => 1,
+
+    // sitemap tổng
+    "sitemap" => 1,
+    // cho category, tags, post options
+    "sitemap-tags" => 1,
+    // sitemap cho post
+    "sitemap-post" => 1,
+    "sitemap-post-images" => 1,
+    "sitemap-all-images" => 1,
+    // cho blogs
+    //	"sitemap-blogs" => 1,
+    // cho blog
+    "sitemap-blog" => 1,
+    // sitemap sitemap cho hình ảnh (sản phẩm)
+    "sitemap-images" => 1,
+    // sitemap sitemap cho hình ảnh (blog)
+    "sitemap-blog-images" => 1,
+    // for page
+    "sitemap-page" => 1,
+    "sitemap-page-images" => 1,
+    "sitemap-other-images" => 1,
+
+    "temp" => 1,
+
+    // cài đặt tự động tài khoản admin
+    "wgr-install" => 1,
+
+    "profile" => 1,
+    "password" => 1,
+    "process" => 1,
+
+    "eb-login" => 1,
+    "eb-register" => 1,
+    "eb-quick-register" => 1,
+    "eb-fogotpassword" => 1,
+    "resetpassword" => 1,
+
+    "eb-ajaxservice" => 1,
+    "download_img_to_site" => 1,
+    "get_post_id_for_menu" => 1,
+
+    "php_info" => 1,
+    "eb-load-quick-search" => 1
+);
+
+// nếu theme có hỗ trợ nhiều định dạng q.cáo khác -> add vào
+if ( isset( $arr_eb_ads_custom_status ) ) {
+    //	print_r( $arr_eb_ads_custom_status );
+
+    foreach ( $arr_eb_ads_custom_status as $k => $v ) {
+        $arr_eb_ads_status[ $k ] = $v;
+    }
+    //	print_r( $arr_eb_ads_status );
+}
+
+
+// chế độ kiểm thử
+//define( 'cf_tester_mode', true );
+if ( $__cf_row[ 'cf_tester_mode' ] == 1 ) {
+    define( 'eb_code_tester', true );
+} else {
+    define( 'eb_code_tester', false );
+}
+
+// chế độ riêng của trang rao vặt
+define( 'cf_set_raovat_version', $__cf_row[ 'cf_set_raovat_version' ] );
+define( 'cf_remove_raovat_meta', $__cf_row[ 'cf_remove_raovat_meta' ] );
 
 // sidebar mặc định
 define( 'WGR_DEFAULT_SIDEBAR', 'main_sidebar' );

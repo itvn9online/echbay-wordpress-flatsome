@@ -20,14 +20,6 @@ get_category_link( $id ) -> dùng function riêng cũng được -> _eb_c_link( 
 */
 
 
-//
-if ( defined( 'EB_CHILD_THEME_URL' ) ) {
-    define( 'using_child_wgr_theme', 1 );
-} else {
-    define( 'using_child_wgr_theme', 0 );
-}
-
-
 // danh sách toàn bộ các theme được hỗ trợ
 $eb_all_themes_support = array();
 
@@ -100,16 +92,13 @@ if ( ! defined('EB_THEME_PLUGIN_INDEX') ) {
 
 //define( 'EB_THEME_OUTSOURCE', EB_THEME_URL . 'outsource/' );
 //define( 'EB_THEME_OUTSOURCE', EB_THEME_PLUGIN_INDEX . 'outsource/' );
-define( 'EB_THEME_OUTSOURCE', EB_THEME_URL . 'outsource/' );
 //echo 'EB_THEME_OUTSOURCE: ' . EB_THEME_OUTSOURCE . '<br>';
 
 //define( 'EB_THEME_CORE', EB_THEME_URL . 'plugin/class/' );
-define( 'EB_THEME_CORE', EB_THEME_PLUGIN_INDEX . 'class/' );
 //echo 'EB_THEME_CORE: ' . EB_THEME_CORE . '<br>';
 
 // thư mục các file code riêng của Ếch Bay (thuộc lớp quản trị viên)
 //define( 'ECHBAY_PRI_CODE', EB_THEME_URL . 'plugin/echbay/' );
-define( 'ECHBAY_PRI_CODE', EB_THEME_PLUGIN_INDEX . 'echbay/' );
 //echo ECHBAY_PRI_CODE . '<br>';
 
 
@@ -175,62 +164,6 @@ function WGR_set_html_mail_content_type() {
 }
 add_filter( 'wp_mail_content_type', 'WGR_set_html_mail_content_type' );
 */
-
-
-// mảng danh sách các định dạng quảng cáo
-$arr_eb_ads_status = array(
-    0 => '[ Không hiển thị ]',
-    1 => EBE_get_lang( 'ads_status1' ),
-    4 => EBE_get_lang( 'ads_status4' ),
-    5 => EBE_get_lang( 'ads_status5' ),
-    6 => EBE_get_lang( 'ads_status6' ),
-    7 => EBE_get_lang( 'ads_status7' ),
-    8 => EBE_get_lang( 'ads_status8' ),
-    9 => EBE_get_lang( 'ads_status9' ),
-    10 => EBE_get_lang( 'ads_status10' ),
-    11 => EBE_get_lang( 'ads_status11' ),
-    12 => EBE_get_lang( 'ads_status12' ),
-    13 => EBE_get_lang( 'ads_status13' ),
-    14 => EBE_get_lang( 'ads_status14' ),
-    15 => EBE_get_lang( 'ads_status15' )
-);
-
-$arr_eb_product_status = array(
-    0 => EBE_get_lang( 'product_status0' ),
-    1 => EBE_get_lang( 'product_status1' ),
-    2 => EBE_get_lang( 'product_status2' ),
-    3 => EBE_get_lang( 'product_status3' ),
-    4 => EBE_get_lang( 'product_status4' ),
-    5 => EBE_get_lang( 'product_status5' ),
-    6 => EBE_get_lang( 'product_status6' ),
-    7 => EBE_get_lang( 'product_status7' ),
-    8 => EBE_get_lang( 'product_status8' ),
-    9 => EBE_get_lang( 'product_status9' ),
-    10 => EBE_get_lang( 'product_status10' )
-);
-
-$arr_eb_product_gender = array(
-    0 => EBE_get_lang( 'product_unisex_gender' ),
-    1 => EBE_get_lang( 'product_male_gender' ),
-    2 => EBE_get_lang( 'product_female_gender' )
-);
-
-$arr_eb_category_gender = array(
-    0 => EBE_get_lang( 'product_unisex_gender' ),
-    1 => EBE_get_lang( 'product_male_gender' ),
-    2 => EBE_get_lang( 'product_female_gender' )
-
-);
-
-// nếu theme có hỗ trợ nhiều định dạng q.cáo khác -> add vào
-if ( isset( $arr_eb_ads_custom_status ) ) {
-    //	print_r( $arr_eb_ads_custom_status );
-
-    foreach ( $arr_eb_ads_custom_status as $k => $v ) {
-        $arr_eb_ads_status[ $k ] = $v;
-    }
-    //	print_r( $arr_eb_ads_status );
-}
 
 
 // cáu trúc chính của trang sản phẩm
